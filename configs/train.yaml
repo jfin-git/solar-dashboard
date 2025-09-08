@@ -1,0 +1,37 @@
+
+site:
+  name: boston_demo
+  latitude: 42.3601
+  longitude: -71.0589
+  dc_kw: 50.0
+  tilt_deg: 30.0
+  azimuth_deg: 180.0
+
+data:
+  horizon_hours: 24
+  history_hours: 48
+  freq: "1H"
+  daylight_threshold_w: 5.0
+
+features:
+  lags: [1, 2, 3, 6, 12, 24]
+  rolls:
+    - {window: 3, stats: ["mean", "std"]}
+    - {window: 6, stats: ["mean", "std"]}
+    - {window: 12, stats: ["mean", "std"]}
+  cyclical_time: true
+  solar_position: true
+
+training:
+  torch:
+    batch_size: 64
+    max_epochs: 20
+    learning_rate: 1e-3
+    hidden_size: 64
+    num_layers: 2
+    dropout: 0.2
+    quantiles: [0.1, 0.5, 0.9]
+  backtest:
+    train_days: 90
+    test_days: 7
+    stride_days: 7
