@@ -1,6 +1,12 @@
+import sys
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[2]  # project root
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 import streamlit as st, pandas as pd, numpy as np
 from src.utils.paths import data_dir
+
 
 st.set_page_config(page_title="Solar Forecast Dashboard", layout="wide")
 st.title("Solar Generation Forecasting (Demo)")
@@ -17,12 +23,21 @@ if not feat_path.exists():
 df = pd.read_parquet(feat_path)
 st.caption(f"Rows: {len(df):,} | {df.index.min()} → {df.index.max()} (UTC)")
 
+# Baseline preds: rename and DROP any columns that already exist in df (like 'y')
 if base_pred_path.exists():
-    preds = pd.read_parquet(base_pred_path).rename(columns={"naive":"naive_pred","xgb":"xgb_pred"})
+    preds = pd.read_parquet(base_pred_path).rename(columns={"naive": "naive_pred", "xgb": "xgb_pred"})
+    overlap = preds.columns.intersection(df.columns)
+    if len(overlap):
+        preds = preds.drop(columns=list(overlap))
     df = df.join(preds, how="left")
+
+# Torch preds (no overlap expected)
 if torch_pred_path.exists():
-    tpred = pd.read_parquet(torch_pred_path)
-    df = df.join(tpred, how="left")
+    torch_preds = pd.read_parquet(torch_pred_path)
+    overlap = torch_preds.columns.intersection(df.columns)
+    if len(overlap):
+        torch_preds = torch_preds.drop(columns=list(overlap))
+    df = df.join(torch_preds, how="left")
 
 st.subheader("Recent Performance")
 days = st.slider("Last N days", 7, 60, 14)
