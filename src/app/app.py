@@ -41,7 +41,16 @@ if torch_pred_path.exists():
 
 st.subheader("Recent Performance")
 days = st.slider("Last N days", 7, 60, 14)
-recent = df.last(f"{days}D")
+
+# ensure time index + sort
+if not isinstance(df.index, pd.DatetimeIndex):
+    df.index = pd.to_datetime(df.index)
+df = df.sort_index()
+
+end = df.index.max()
+start = end - pd.Timedelta(days=days)
+recent = df.loc[start:end]
+
 plot_df = recent[["y"]].rename(columns={"y":"Actual (kW)"})
 if "xgb_pred" in recent: plot_df["XGB Pred (kW)"] = recent["xgb_pred"]
 if "pred_p50_avg24h" in recent: plot_df["Torch P50 (avg next 24h)"] = recent["pred_p50_avg24h"]

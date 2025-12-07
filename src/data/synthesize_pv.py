@@ -22,7 +22,7 @@ def clearsky_profile(ts, lat, lon):
 def generate(days=120, lat=42.36, lon=-71.06, dc_kw=50.0, seed=7):
     rng = np.random.default_rng(seed)
     end = pd.Timestamp.utcnow().floor("h").tz_convert("UTC")
-    idx = pd.date_range(end=end, periods=24*days, freq="1H")
+    idx = pd.date_range(end=end, periods=24*days, freq="1h")
     df = pd.DataFrame(index=idx)
     df["cloud"] = np.clip(rng.normal(0.5, 0.25, len(df)), 0, 1)
     df["temp"] = 10 + 10*np.sin(2*pi*df.index.dayofyear/365.0) + rng.normal(0, 3, len(df))

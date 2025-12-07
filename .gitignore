@@ -16,3 +16,4 @@ models/**
 .streamlit/
 .DS_Store
 Thumbs.db
+LOG.txt
