@@ -1,7 +1,7 @@
 
 # Solar Generation Forecasting Dashboard (PyTorch + Streamlit)
 
-A portfolio-ready project that predicts day-ahead PV generation for a site in Massachusetts and visualizes predictions, uncertainty, and errors in a Streamlit dashboard.
+A project that predicts day-ahead PV generation for a site in Massachusetts and visualizes predictions, uncertainty, and errors in a Streamlit dashboard.
 
 ## Quickstart
 
