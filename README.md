@@ -1,11 +1,11 @@
 
 # Solar Generation Forecasting Dashboard (PyTorch + Streamlit)
 
-A portfolio-ready project that predicts day-ahead PV generation for a site in Massachusetts and visualizes predictions, uncertainty, and errors in a Streamlit dashboard.
+I built a hybrid forecasting system for New England solar assets that combines physical irradiance modeling with gradient boosting to account for regional micro-climates and 'soiling' losses, providing more reliable day-ahead dispatch data for grid operators.
 
 ## Quickstart
 
-> **Prereqs:** Python 3.10+ recommended. Install **PyTorch** first following the official instructions: https://pytorch.org/get-started/locally/
+> **Prereqs:** Python 3.10+ recommended. Install **PyTorch** first following the official instructions: <https://pytorch.org/get-started/locally/>
 
 ```bash
 git clone <your-fork-url> solar-dashboard
@@ -32,7 +32,7 @@ streamlit run src/app/app.py
 
 ## Repo layout
 
-```
+```bash
 solar-dashboard/
   data/ (raw, interim, processed)
   models/ (artifacts)
@@ -46,5 +46,6 @@ solar-dashboard/
 ```
 
 Notes:
+
 - Synthetic data is for development; swap in real PV + forecast weather for production.
 - Metrics computed for daylight hours by default.
