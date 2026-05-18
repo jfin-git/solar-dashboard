@@ -38,5 +38,8 @@ def aggregate_time_series(raw_dir='data/raw', processed_dir='data/processed'):
         full_df.to_csv(save_path)
         print(f"  Successfully created {save_path} with {len(full_df)} observations.")
 
+        print(full_df.head())
+        print(full_df.tail())
+        
 if __name__ == "__main__":
     aggregate_time_series()

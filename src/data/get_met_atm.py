@@ -3,10 +3,13 @@ import requests
 import pandas as pd
 import io
 import time
+from dotenv import load_dotenv
 
 # --- CONFIG ---
-API_KEY = "eVrTdZuo6Gr8aYyPcgU1jDDg9qcmNH7FCFUFiRJZ"
-EMAIL = "jsfinney1@gmail.com"
+load_dotenv()
+
+API_KEY = os.getenv("NREL_API_KEY")
+EMAIL = os.getenv("EMAIL")
 META_PATH = 'data/processed/solar_farm_meta.csv'
 OUTPUT_DIR = 'data/raw'
 BASE_URL = "https://developer.nrel.gov/api/nsrdb/v2/solar/nsrdb-GOES-conus-v4-0-0-download.csv"

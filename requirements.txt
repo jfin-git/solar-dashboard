@@ -11,3 +11,4 @@ xgboost>=2.0
 pytorch-lightning>=2.2
 torchmetrics>=1.4
 astral>=3.2
+python-dotenv
